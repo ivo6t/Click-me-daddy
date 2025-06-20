@@ -1,6 +1,10 @@
 #include "raylib.h"
 #include <chrono>
+#include <iostream>
 #include <thread>
+#include <fstream>
+
+using namespace std;
 
 int main(){
     int WIDTH = 500;
@@ -71,8 +75,16 @@ int main(){
             DrawText("you win !!!!!!!!!!!!!!!!!!!!!!!!", 250,300,20,RED);
             EndDrawing();
             std::this_thread::sleep_for(std::chrono::seconds(2));
+            ofstream winfile("win.txt");
+            if (winfile.is_open()){
+                winfile<<"you won!!!!!!!!!!!!!!!"<<endl;
+                winfile.close();
+            }else{
+                cerr<<"sorry couldn't make a file"<<endl;
+                return 1;
+            }
             CloseWindow();
-            CloseAudioDevice();
+            CloseAudioDevice();          
             return 0;
         }
         BeginDrawing();
